@@ -53,14 +53,22 @@ foreach my $item (@items) {
 		$desc =~ s/^-\s*//ms;
 
 		# Save.
-		# TODO Update.
-		print encode_utf8("- $shortcut: $desc\n");
-		$dt->insert({
-			'Shortcut' => $shortcut,
-			'Description' => $desc,
-		});
-		# TODO Move to begin with create_table.
-		$dt->create_index(['Shortcut'], 'data', 1, 1);
+		my $ret_ar = eval {
+			$dt->execute('SELECT COUNT(*) FROM data WHERE Shortcut = ?',
+				$shortcut);
+		};
+		if ($EVAL_ERROR || ! @{$ret_ar} || ! exists $ret_ar->[0]->{'count(*)'}
+			|| ! defined $ret_ar->[0]->{'count(*)'}
+			|| $ret_ar->[0]->{'count(*)'} == 0) {
+
+			print encode_utf8("- $shortcut: $desc\n");
+			$dt->insert({
+				'Shortcut' => $shortcut,
+				'Description' => $desc,
+			});
+			# TODO Move to begin with create_table.
+			$dt->create_index(['Shortcut'], 'data', 1, 1);
+		}
 
 		# Clean.
 		undef $shortcut;
