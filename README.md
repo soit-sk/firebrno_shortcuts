@@ -1,3 +1,3 @@
 This is a scraper that runs on [Morph](https://morph.io). To get started [see the documentation](https://morph.io/documentation)
 
-Scrape data about [Hasičský záchranný sbor Jihomoravského kraje - Shortcuts](http://www.firebrno.cz/modules/incidents/index.php)
+Scrape data about [Hasičský záchranný sbor Jihomoravského kraje - Používané zkratky](http://www.firebrno.cz/modules/incidents/index.php)
